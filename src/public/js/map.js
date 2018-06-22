@@ -144,10 +144,27 @@ var centerControlDiv = document.createElement('div');
 }
 
 function submission() {
+    // event.preventDefault();
+    // $.ajax({
+    //   url: '/getAll',
+    //   type: 'POST',
+    //   data: {
+    //       userId: 'example',
+    //       goodOr: false
+    //    },
+    //   success: function(msg) {
+    //     console.log(this.data);
+    //     // alert('Email Sent');
+    //   },
+    //   error: function(err) {
+    //     console.log(err);
+    //   }               
+    // });
+
     floaty.style.zIndex = -10;
     var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var icons = iconBase + 'library_maps.png';
-    var ok = document.getElementsByName('ok')[0];
+    var ok = document.getElementsByName('goodOr')[0];
     console.log('ehlpme');
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
     if (ok.value === "yes") {

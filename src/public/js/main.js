@@ -8,18 +8,19 @@ $(document).ready(function(){
 });
 
 var ajax = {
-  url: '/search/getAll',
+  url: '/getAll',
   type: 'get',
   dataType: 'json',
-  success: function(searches) {
-    console.log(searches);
-    for (var i = 0; i < searches.length; i++) {
-      if (searches[i].found){
-      $('#foundSearches').append('<li>' + searches[i].query + '</li>');
-      console.log(searches[i].query);
+  success: function(locations) {
+    console.log(locations[1]);
+    for (var i = 0; i < locations.length; i++) {
+      if (locations[i].found){
+      $('#foundSearches').append('<li>' + locations[i].query + '</li>');
+        console.log(locations[i].query);
       }
       else {
-      $('#notFoundSearches').append('<li span style="color:#38b6a0">' + searches[i].query + '</li>');
+        console.log(locations);
+        $('.two').css('background-color', 'white');
       }
     }
   },
@@ -29,20 +30,20 @@ var ajax = {
 }
 
 
-      $('#submit').click(function(event) {
-        event.preventDefault();
-        $.ajax({
-          url: '/search/getAll',
-          type: 'POST',
-          data: {
-              email: 'email@example.com',
-              message: 'hello world!'
-          },
-          success: function(msg) {
-            alert('Email Sent');
-          },
-          error: function(err) {
-            console.log(err);
-          }               
-        });
-      });
+      // $('#submit').click(function(event) {
+      //   event.preventDefault();
+      //   $.ajax({
+      //     url: '/search/getAll',
+      //     type: 'POST',
+      //     // data: {
+      //     //     email: 'email@example.com',
+      //     //     message: 'hello world!'
+      //     // },
+      //     success: function(msg) {
+      //       alert('Email Sent');
+      //     },
+      //     error: function(err) {
+      //       console.log(err);
+      //     }               
+      //   });
+      // });
