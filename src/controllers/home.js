@@ -11,7 +11,6 @@ HomeController.route('/getAll')
   .get(function(req, res, next) {
     Location.find(function(err, locations) {
       res.json(locations);
-      console.log(err);
     });
   })
 
@@ -20,12 +19,12 @@ HomeController.route('/getAll')
 HomeController.route('/?') 
   .get(function(req, res, next) {
     res.render('home')
-    console.log('home get')
   })
   .post(function(req, res, next) {
+    console.log('req.body.tester: ' + req.body.tester);
     Location.create({
-      loc: [{lat: 80, lng: 80}],
-      userId: 'new test',
+      loc: [{lat: req.body.lat1, lng: req.body.long1}],
+      userId: req.body.goodOr, //this works. because it's a form? 
       goodOr: true
     })
   });

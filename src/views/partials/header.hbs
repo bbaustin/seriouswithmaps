@@ -12,11 +12,17 @@
       <div id="foundSearches"></div>
     </div>
 
+    <form action="/" method="post" target ="votar" id="invisible">
+      <input type="text" id="long1" name="long1">
+      <input type="text" id="lat1" name="lat1">
+    </form>
+
     <div id="floaty">
       <h1>Add parking spot</h1>
       <iframe name="votar" style="display:none;"></iframe>  <!-- https://stackoverflow.com/questions/2866063/submit-form-without-page-reloading -->
       <form action="/" method="post" target="votar" > <!-- target="votar" -->  
         <!-- NOTE TO SELF: This wasn't working for a while because you were sending the action to /getAll. If you had the POST in the controller set to GetAll it would work. OR if you did what you did and set the action to this page, it works. The action here and the POST in the controller just need to match up.-->
+
 
 
         <input type="text" name="goodOr">     

@@ -19,8 +19,14 @@ function getLocation() {
       centWin.open(map);
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
-      });
-    } else {
+      $('.two').append('<p id="lat2">'+arr[0]+'</p><p id="long2">'+arr[1]+'</p>');
+
+      document.getElementById('lat1').value=arr[0];
+      document.getElementById('long1').value=arr[1];
+      document.forms[0].submit()
+
+    });
+  } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, centWin, map.getCenter());
     pos = {
@@ -183,5 +189,6 @@ function submission() {
     } else {
       console.log('haha');
     }
+    console.log(arr);
 
   }
