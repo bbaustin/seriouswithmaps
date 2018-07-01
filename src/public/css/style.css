@@ -17,6 +17,9 @@ body {
   background-color: pink;
   z-index: -10;
 }
+.two {
+  display: none;
+}
 #fakeSubmit {
   background-color: white;
   border-radius: 10%;

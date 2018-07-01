@@ -15,13 +15,11 @@ HomeController.route('/getAll')
   })
 
 
-
 HomeController.route('/?') 
   .get(function(req, res, next) {
     res.render('home')
   })
   .post(function(req, res, next) {
-    console.log('req.body.tester: ' + req.body.tester);
     Location.create({
       loc: [{lat: req.body.lat1, lng: req.body.long1}],
       userId: req.body.goodOr, //this works. because it's a form? 
