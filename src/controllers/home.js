@@ -20,11 +20,20 @@ HomeController.route('/?')
     res.render('home')
   })
   .post(function(req, res, next) {
-    Location.create({
-      loc: [{lat: req.body.lat1, lng: req.body.long1}],
-      userId: req.body.goodOr, //this works. because it's a form? 
-      goodOr: true
-    })
+    if (req.body.goodOr === "yes") {
+      Location.create({
+        loc: [{lat: req.body.lat1, lng: req.body.long1}],
+        userId: req.body.goodOr, //this works. because it's a form? 
+        goodOr: true
+      })
+    }
+    else {
+      Location.create({
+        loc: [{lat: req.body.lat1, lng: req.body.long1}],
+        userId: req.body.goodOr, //this works. because it's a form? 
+        goodOr: false
+      })
+    } 
   });
 
  

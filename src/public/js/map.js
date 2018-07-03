@@ -77,6 +77,9 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
   map.addListener('click', function(loc) {
     console.log('first');
     placeMarker(loc.latLng, map);
+    document.getElementById('lat1').value=loc.latLng.lat();
+    document.getElementById('long1').value=loc.latLng.lng();
+    // forms[0].submit();
   }) 
 
   function placeMarker(latLng, map) {
@@ -87,6 +90,7 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
     });
     marker.addListener('click', function() {
       infowindow.open(map, marker);
+
     })
   }
 
@@ -103,7 +107,7 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
       icon: icons,
       map: map
     });
-    console.log(latLng);
+    console.log(latLng.lat);
   }
 
 function CenterControl(controlDiv, map) {
