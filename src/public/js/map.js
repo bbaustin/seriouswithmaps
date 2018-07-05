@@ -4,6 +4,7 @@ var tLng = 139.6917;
 var pos;
 var centWin;
 var arr = [];
+var dummy = []; 
 
 function getLocation() {
   var save;
@@ -15,8 +16,10 @@ function getLocation() {
       };
    
       centWin.setPosition(pos);
-      centWin.setContent('Location found.');
+      centWin.setContent('You are here');
       centWin.open(map);
+
+      //LATER, make loading screen until this happens. 
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
       $('.two').append('<p id="lat2">'+arr[0]+'</p><p id="long2">'+arr[1]+'</p>');
@@ -36,13 +39,12 @@ function getLocation() {
     }
 }
 
-console.log(arr);
 
 function initMap() {
   getLocation();
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: tLat, lng: tLng},
-    zoom: 14
+    // center: {lat: tLat, lng: tLng},    // LOADING SCREEN INSTEAD OF
+    zoom: 19
   });
   centWin = new google.maps.InfoWindow;
 
@@ -61,6 +63,7 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
 
 
 
+
   /////////////////////////////////////
   // setting a marker upon clicking. //
   ////////////////////////////////////
@@ -74,8 +77,11 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
     content: contentBox
   });
 
+
+  ////////////////
+  //   CLICK!  // 
+  //////////////
   map.addListener('click', function(loc) {
-    console.log('first');
     placeMarker(loc.latLng, map);
     document.getElementById('lat1').value=loc.latLng.lat();
     document.getElementById('long1').value=loc.latLng.lng();
@@ -93,21 +99,16 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
     })
   }
 
-  //  setting a custom marker upon double clicking
 
-  map.addListener('rightclick', function(loc) {
-    console.log('second');
-    placeParkMarker(loc.latLng, map);
-  }) 
 
-  function placeParkMarker(latLng, map) {
-    var marker = new google.maps.Marker({
-      position: latLng,
-      icon: icons,
-      map: map
-    });
-    console.log(latLng.lat);
-  }
+  // function placeParkMarker(latLng, map) {
+  //   var marker = new google.maps.Marker({
+  //     position: latLng,
+  //     icon: icons,
+  //     map: map
+  //   });
+  //   console.log(latLng.lat);
+  // }
 
 function CenterControl(controlDiv, map) {
 
@@ -120,7 +121,8 @@ function CenterControl(controlDiv, map) {
   controlUI.style.cursor = 'pointer';
   controlUI.style.marginBottom = '22px';
   controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to recenter the map';
+  controlUI.title = 'Place a parking marker';
+  controlUI.className += 'temp';
   controlDiv.appendChild(controlUI);
 
   // Set CSS for the control interior.
@@ -134,16 +136,65 @@ function CenterControl(controlDiv, map) {
   controlText.innerHTML = 'Place Marker';
   controlUI.appendChild(controlText);
 
-
+  var counter = 0; 
   controlUI.addEventListener('click', function() {
+    var myLatLng = {lat: arr[0], lng: arr[1]};
+    console.log(counter%2);
 
-    floaty.style.zIndex = 10;
+    //////////////////////////////////////////////////////////
+    //CLICKING FOR FIRST TIME, BEFORE A YELLOW MARKER IS SET//
+    //////////////////////////////////////////////////////////
+    if (counter%2===0) {
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Hello World!', 
+        draggable: true,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        testThing: 123 //actually works? 
+      });
+      marker.className += 'changeFromYellow'; //not quite working 
+      dummy.push[marker];
+      console.log(dummy[0]);
+      marker.setZIndex(99999); //works
+      /////////////
+      //DRAGGING!//
+      /////////////
+      marker.addListener('dragend', function(marker) {
+        console.log(marker.latLng.lat() + ' ' + marker.latLng.lng());
+        document.getElementById('lat1').value=marker.latLng.lat();
+        arr[0] = marker.latLng.lat();
+        document.getElementById('long1').value=marker.latLng.lng();
+        arr[1] = marker.latLng.lng(); 
+      })
+
+
+      controlText.innerHTML = 'Location OK?';
+      controlText.style.backgroundColor = "yellow";
+      counter++;
+
+    } 
+    else {
+      floaty.style.zIndex = 10;
+      // marker.draggable = false; //this doesn't work but not a huge issue. 
+      counter++;
+      $('.temp').css('display', 'none');
+      // controlUI.style.display = 'none';
+    }
     // make box pop up here with good or bad option 
     // optional picture update
     // later this will interface with db
 
   });
 }
+
+
+
+
+// google.maps.event.addListener(m, 'dragend', function(ev){
+//     alert(ll.lat() + ' ' + ll.lng()); // always the same LatLng-Object...
+//     alert(m.getPosition()); // new LatLng-Object after dragend-event...
+// });
 
 var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
@@ -153,29 +204,24 @@ var centerControlDiv = document.createElement('div');
 }
 
 function submission() {
-    // event.preventDefault();
-    // $.ajax({
-    //   url: '/getAll',
-    //   type: 'POST',
-    //   data: {
-    //       userId: 'example',
-    //       goodOr: false
-    //    },
-    //   success: function(msg) {
-    //     console.log(this.data);
-    //     // alert('Email Sent');
-    //   },
-    //   error: function(err) {
-    //     console.log(err);
-    //   }               
-    // });
-
     floaty.style.zIndex = -10;
     var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
     var icons = iconBase + 'library_maps.png';
     var ok = document.getElementsByName('goodOr')[0];
-    console.log('ehlpme');
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
+
+    console.log(document.body.getElementsByClassName('temp')[0]); //undefined
+    $('.temp').css('display', 'initial'); 
+
+    //I want yellow to disappear and red or green marker to be created
+    //OK Right now it's adding greenYES or library(???)NO markers when you submit.
+    //IN the "you are here" location.
+    // So you need to update the location to the dragged location. 
+    //I'm sure there's a DRY way to do this.  
+    // $('.changeFromYellow').css('display', 'none');
+
+    //RN I'm just putting it on top of the yellow marker. That's OK?
+
     if (ok.value === "yes") {
       var marker = new google.maps.Marker({
         position: myLatLng,
@@ -183,16 +229,35 @@ function submission() {
         title: 'Hello World!', 
         icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
       });
+      marker.setZIndex(99999);
     } else if (ok.value === "no") {
       var marker = new google.maps.Marker({
         position: myLatLng,
-        icon: icons,
         map: map,
         title: 'Hello World!'
       });
+      marker.setZIndex(99999);
     } else {
       console.log('haha');
     }
     console.log(arr);
-
+    // controlUI.style.display = 'initial';    Out of scope 
   }
+
+
+
+
+
+
+
+
+///GRAVEYARD
+
+
+  //  setting a custom marker upon double clicking
+
+  // map.addListener('rightclick', function(loc) {
+  //   console.log('second');
+  //   placeParkMarker(loc.latLng, map);
+  // }) 
+

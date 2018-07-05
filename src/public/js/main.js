@@ -8,11 +8,11 @@ var ajax = {
   type: 'get',
   dataType: 'json',
   success: function(locations) {
-    console.log(locations[1]);
+    // console.log(locations[1]);
     for (var i = 0; i < locations.length; i++) {
       if (locations[i].loc[0].lat && locations[i].loc[0].lng){
         // Propagates already-set markers on the map  
-        console.log(locations[i].loc[0].lat + " " + locations[i].loc[0].lng);
+        // console.log(locations[i].loc[0].lat + " " + locations[i].loc[0].lng);
         if (locations[i].goodOr) {  // checks if it's YES (GREEN) ...
           var marker = new google.maps.Marker({
             icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', 
