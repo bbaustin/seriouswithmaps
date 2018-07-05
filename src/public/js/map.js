@@ -79,7 +79,6 @@ function handleLocationError(browserHasGeolocation, centWin, pos) {
     placeMarker(loc.latLng, map);
     document.getElementById('lat1').value=loc.latLng.lat();
     document.getElementById('long1').value=loc.latLng.lng();
-    // forms[0].submit();
   }) 
 
   function placeMarker(latLng, map) {
@@ -181,7 +180,8 @@ function submission() {
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: 'Hello World!'
+        title: 'Hello World!', 
+        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
       });
     } else if (ok.value === "no") {
       var marker = new google.maps.Marker({
