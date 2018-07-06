@@ -4,6 +4,7 @@ var map,
     pos,
     centWin,
     arr = [],
+    initialLocation = [],
     controlUI = document.createElement('div'),
     controlText = document.createElement('div'),
     marker,
@@ -29,6 +30,7 @@ function getLocation() {
       //LATER, make loading screen until this happens. 
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
+      initialLocation.push(position.coords.latitude, position.coords.longitude)
       $('.two').append('<p id="lat2">'+arr[0]+'</p><p id="long2">'+arr[1]+'</p>'); //7/6: do I still need this? 
 
       latHolder.value=arr[0];
@@ -126,20 +128,23 @@ function initMap() {
   }
 
   controlUI.addEventListener('click', function() {
-    var myLatLng = {lat: arr[0], lng: arr[1]};
+    var myLatLng;
 
     //CLICKING FOR FIRST TIME, BEFORE A YELLOW MARKER IS SET//
     if (counter%2===0) {
       makeSureOneYellow();
+      myLatLng = {lat: arr[0], lng: arr[1]};
       placeMarker(myLatLng, map);
       changed=true;
-      controlText.innerHTML = 'Confirm Location';
+      controlText.innerHTML = 'You can drag or click the map to change your marker location. Or press this button to recenter.';
       controlText.style.backgroundColor = "yellow";
       counter++;
       // console.log('latHolder.value: ' + latHolder.value + ', arr[0]: ' + arr[0] + ', marker.latLng.lat(): ' + marker.latLng.lat());
       // console.log('longHolder.value: ' + longHolder.value + ', arr[1]: ' + arr[1] + ', marker.latLng.lat(): ' + marker.latLng.lng());
     } 
     else {
+      myLatLng = {lat: initialLocation[0], lng: initialLocation[1]};
+      placeMarker(myLatLng, map);
       floaty.style.zIndex = 10;
       counter++;
     }
@@ -166,11 +171,9 @@ function CenterControl(controlDiv, map) {
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
-  controlText.innerHTML = 'Place Marker';
+  controlText.innerHTML = 'Place Marker at GPS Location';
   controlUI.appendChild(controlText);
 }
-
-
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
   centerControlDiv.index = 1;
