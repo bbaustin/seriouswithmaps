@@ -17,6 +17,20 @@ body {
   background-color: pink;
   z-index: -10;
 }
+.north {
+  height: 5%;
+  min-height: 30px;
+  background: #f0f0f0;
+  width: 100%;
+  z-index: 100000;
+  display: fixed;
+  top: 0;
+}
+.rc {
+}
+h1 {
+  margin: 0;
+}
 .two {
   display: none;
 }

@@ -9,11 +9,12 @@ var ajax = {
   dataType: 'json',
   success: function(locations) {
     // console.log(locations[1]);
+    var markers = [];
     for (var i = 0; i < locations.length; i++) {
       if (locations[i].loc[0].lat && locations[i].loc[0].lng){
-        // Propagates already-set markers on the map  
-        // console.log(locations[i].loc[0].lat + " " + locations[i].loc[0].lng);
-        if (locations[i].goodOr) {  // checks if it's YES (GREEN) ...
+        markers.push(locations[i]); // 7/6: Not sure if needed. Might be useful to access all markers from front end. Hide all, etc. 
+
+        if (locations[i].goodOr) {  // checks if it's YES (GREEN) ...   7/6: Note, this is very similar to the DRYer thing you made in map.js. Is it better to combine into one file so that function is made availble? Or load map.js first in the footer.hbs
           var marker = new google.maps.Marker({
             icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', 
             position: {lat: locations[i].loc[0].lat, lng: locations[i].loc[0].lng},
@@ -31,6 +32,8 @@ var ajax = {
 
       }
     }
+    console.log(markers);        
+
   },
   error: function(err) {
     console.log(err);
