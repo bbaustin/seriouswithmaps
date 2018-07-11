@@ -130,25 +130,10 @@ function initMap() {
 
   controlUI.addEventListener('click', function() {
     var myLatLng;
-    console.log(counter);
-
-    //CLICKING FOR FIRST TIME, BEFORE A YELLOW MARKER IS SET//
-      // makeSureOneYellow();
-      // myLatLng = {lat: arr[0], lng: arr[1]}; //totally unneeded here, i think
-      // placeMarker(myLatLng, map);  // do NOT place new marker.
-      // changed=true;
       controlText.style.backgroundColor = "yellow";
       counter++;
       floaty.style.zIndex = 10;
-
-      // console.log('latHolder.value: ' + latHolder.value + ', arr[0]: ' + arr[0] + ', marker.latLng.lat(): ' + marker.latLng.lat());
-      // console.log('longHolder.value: ' + longHolder.value + ', arr[1]: ' + arr[1] + ', marker.latLng.lat(): ' + marker.latLng.lng());
     });
-    // else {
-    //   myLatLng = {lat: initialLocation[0], lng: initialLocation[1]};
-    //   placeMarker(myLatLng, map);
-    //   counter++;
-    // }
 
   $('h1').on('click', function() {  //recenter marker
     var myLatLng;
@@ -179,7 +164,7 @@ function CenterControl(controlDiv, map) {
 
   // Set CSS for the control interior.
   controlText.style.color = 'rgb(25,25,25)';
-  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontFamily = 'Muli,Arial,sans-serif';
   controlText.style.fontSize = '16px';
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';

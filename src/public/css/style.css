@@ -7,6 +7,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Muli', sans-serif;
 }
 #floaty {
   position: fixed;
@@ -14,24 +15,25 @@ body {
   width: 80px;
   top: 112px;
   right: 0px;
-  background-color: pink;
+  background-color: rgba(255, 121, 179, 0.6);
 }
 .north {
   height: 5%;
+  height: 40px;
   min-height: 30px;
-  background: #f0f0f0;
+  background: #4e4e4e;
   width: 100%;
   z-index: 100000;
   display: fixed;
   top: 0;
 }
-.rc {
-}
 h1 {
+  font-family: 'Roboto Mono', monospace;
+  color: #fafafa;
   margin: 0;
 }
 .two {
-  background: lightblue;
+  background: rgba(91, 214, 191, 0.82);
   float: right;
   display: initial;
 }
