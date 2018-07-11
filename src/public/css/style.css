@@ -11,12 +11,10 @@ body {
 #floaty {
   position: fixed;
   height: 400px;
-  width: 400px;
-  top: 10px;
-  left: 10px;
+  width: 80px;
+  top: 112px;
+  right: 0px;
   background-color: pink;
-  z-index: -10;
-  opacity: .5;
 }
 .north {
   height: 5%;

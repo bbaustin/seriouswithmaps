@@ -14,6 +14,8 @@ var map,
     changed = false;
     
 
+
+
 function getLocation() {
   var save;
   if (navigator.geolocation) {
@@ -25,7 +27,7 @@ function getLocation() {
    
       centWin.setPosition(pos);
       centWin.setContent('You are here');
-      centWin.open(map);
+      // centWin.open(map);
 
       //LATER, make loading screen until this happens. 
       map.setCenter(pos);
@@ -82,24 +84,23 @@ function initMap() {
 
   function makeSureOneYellow() {
     console.log(changed);
-    if (changed) {
+    if (changed && marker) {
       marker.setMap(null);
     }
   }
 
 
   map.addListener('click', function(loc) {
+    changed=true;
     makeSureOneYellow();
     placeMarker(loc.latLng, map);
-    changed=true;
+    
 
     latHolder.value=loc.latLng.lat();
-    arr[0] = marker.latLng.lat();
+    arr[0] = loc.latLng.lat();
     longHolder.value=loc.latLng.lng();
-    arr[1] = marker.latLng.lng(); 
-    // console.log('latHolder.value: ' + latHolder.value + ', arr[0]: ' + arr[0] + ', marker.latLng.lat(): ' + marker.latLng.lat());
-    // console.log('longHolder.value: ' + longHolder.value + ', arr[1]: ' + arr[1] + ', marker.latLng.lat(): ' + marker.latLng.lng());
- }) 
+    arr[1] = loc.latLng.lat(); 
+  }) 
 
   function placeMarker(latLng, map) {
     // makeSureOneYellow();
@@ -129,26 +130,38 @@ function initMap() {
 
   controlUI.addEventListener('click', function() {
     var myLatLng;
+    console.log(counter);
 
     //CLICKING FOR FIRST TIME, BEFORE A YELLOW MARKER IS SET//
-    if (counter%2===0) {
-      makeSureOneYellow();
-      myLatLng = {lat: arr[0], lng: arr[1]};
-      placeMarker(myLatLng, map);
-      changed=true;
-      controlText.innerHTML = 'You can drag or click the map to change your marker location. Or press this button to recenter.';
+      // makeSureOneYellow();
+      // myLatLng = {lat: arr[0], lng: arr[1]}; //totally unneeded here, i think
+      // placeMarker(myLatLng, map);  // do NOT place new marker.
+      // changed=true;
       controlText.style.backgroundColor = "yellow";
       counter++;
+      floaty.style.zIndex = 10;
+
       // console.log('latHolder.value: ' + latHolder.value + ', arr[0]: ' + arr[0] + ', marker.latLng.lat(): ' + marker.latLng.lat());
       // console.log('longHolder.value: ' + longHolder.value + ', arr[1]: ' + arr[1] + ', marker.latLng.lat(): ' + marker.latLng.lng());
-    } 
-    else {
-      myLatLng = {lat: initialLocation[0], lng: initialLocation[1]};
-      placeMarker(myLatLng, map);
-      floaty.style.zIndex = 10;
-      counter++;
-    }
-  });
+    });
+    // else {
+    //   myLatLng = {lat: initialLocation[0], lng: initialLocation[1]};
+    //   placeMarker(myLatLng, map);
+    //   counter++;
+    // }
+
+  $('h1').on('click', function() {  //recenter marker
+    var myLatLng;
+    makeSureOneYellow();
+    myLatLng = {lat: initialLocation[0], lng: initialLocation[1]}; //totally unneeded here, i think
+    latHolder.value=initialLocation[0];
+    arr[0] = initialLocation[0];
+    longHolder.value=initialLocation[1];
+    arr[1] = initialLocation[1];
+
+    placeMarker(myLatLng, map);  // do NOT place new marker.
+    changed=true;
+  })
 
 
 function CenterControl(controlDiv, map) {
@@ -171,7 +184,7 @@ function CenterControl(controlDiv, map) {
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
-  controlText.innerHTML = 'Place Marker at GPS Location';
+  controlText.innerHTML = 'Confirm location';
   controlUI.appendChild(controlText);
 }
   var centerControlDiv = document.createElement('div');
@@ -250,3 +263,23 @@ function submission() {
 //     alert(ll.lat() + ' ' + ll.lng()); // always the same LatLng-Object...
 //     alert(m.getPosition()); // new LatLng-Object after dragend-event...
 // });
+
+
+
+
+//RYO CODE
+    // Less is more. 
+
+    // //Single Responsibility Principle 
+    // function() {
+    //   var hoge = 1;
+    //   function countUp(count) {
+    //     return count + 1;
+    //   } 
+    //   return countUp(hoge);
+    // }
+    // var Bar = {
+    //   countDown: function(count) { return count - 1 ;},
+    // }
+    // Bar.countDown(hoge); // => 0
+
