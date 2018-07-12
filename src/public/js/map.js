@@ -72,6 +72,7 @@ function initMap() {
   // setting a marker upon clicking. //
   ////////////////////////////////////
   var floaty = document.getElementById('floaty');
+  var floatyHolder = document.getElementById('floatyholder');
   var contentBox = "<small>Hello World it me</small>"
   var infowindow = new google.maps.InfoWindow({
     content: contentBox
@@ -132,7 +133,7 @@ function initMap() {
     var myLatLng;
       controlText.style.backgroundColor = "yellow";
       counter++;
-      floaty.style.zIndex = 10;
+      floatyHolder.style.zIndex = 10;
     });
 
   $('h1').on('click', function() {  //recenter marker
@@ -179,7 +180,8 @@ function CenterControl(controlDiv, map) {
 }
 
 function submission() {
-    floaty.style.zIndex = -10;
+    var floatyHolder = document.getElementById('floatyholder');
+    floatyHolder.style.zIndex = -10;
     var ok = document.getElementsByName('goodOr')[0];
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
 
