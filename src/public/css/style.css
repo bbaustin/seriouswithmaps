@@ -13,6 +13,7 @@ body {
   width: 100%;
   position: fixed;
   z-index: -10;
+  top: 60px;
 }
 #floaty {
   margin-left: auto;
@@ -26,13 +27,11 @@ body {
   background-color: rgba(251, 148, 189, 0.6);
 }
 .north {
-  height: 5%;
   height: 40px;
-  min-height: 30px;
   background: #4e4e4e;
   width: 100%;
   z-index: 100000;
-  display: fixed;
+  position: fixed;
   top: 0;
 }
 h1 {
@@ -43,6 +42,18 @@ h1 {
 #lat1,
 #long1 {
   display: none;
+}
+nav {
+  float: right;
+  top: 0px;
+}
+nav p {
+  display: inline-block;
+  padding-right: 25px;
+  color: rgba(91, 214, 191, 0.82);
+}
+.lc {
+  float: left;
 }
 .two {
   background: rgba(91, 214, 191, 0.82);

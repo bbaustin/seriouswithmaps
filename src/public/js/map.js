@@ -160,7 +160,6 @@ function CenterControl(controlDiv, map) {
   controlUI.style.marginBottom = '22px';
   controlUI.style.textAlign = 'center';
   controlUI.title = 'Place a parking marker';
-  controlUI.className += 'temp';
   controlDiv.appendChild(controlUI);
 
   // Set CSS for the control interior.
@@ -170,6 +169,7 @@ function CenterControl(controlDiv, map) {
   controlText.style.lineHeight = '38px';
   controlText.style.paddingLeft = '5px';
   controlText.style.paddingRight = '5px';
+  controlText.style.marginTop = '40px';
   controlText.innerHTML = 'Confirm location';
   controlUI.appendChild(controlText);
 }
@@ -204,6 +204,8 @@ function submission() {
       console.log('haha');
     }
   }
+
+  
 
 
 

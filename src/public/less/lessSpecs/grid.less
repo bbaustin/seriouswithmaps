@@ -25,13 +25,11 @@ html, body {
   background-color: @pink;
 }
 .north {
-  height: 5%;
   height: 40px;
-  min-height: 30px;
   background: @black;
   width: 100%;
   z-index: 100000;
-  display: fixed;
+  position: fixed;
   top: 0;
 }
 h1 {
@@ -42,7 +40,18 @@ h1 {
 #lat1, #long1 {
   display: none;
 }
-
+nav {
+  float:right;
+  top: 0px;
+  p {
+    display: inline-block;
+    padding-right: 25px;
+    color: @teal;
+  }
+}
+.lc {
+  float: left;
+}
 .two {
   background: @teal;
   float: right;
