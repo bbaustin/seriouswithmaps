@@ -16,7 +16,13 @@ var ajax = {
 
         if (locations[i].goodOr) {  // checks if it's YES (GREEN) ...   7/6: Note, this is very similar to the DRYer thing you made in map.js. Is it better to combine into one file so that function is made availble? Or load map.js first in the footer.hbs
           var marker = new google.maps.Marker({
-            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', 
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 6,
+                fillColor: 'black',
+                fillOpacity: 1,
+                strokeColor: 'rgba(91, 214, 191, .82)'
+            },            
             position: {lat: locations[i].loc[0].lat, lng: locations[i].loc[0].lng},
             map: map,  
             title: locations[i].loc[0].lat + " " + locations[i].loc[0].lng
@@ -25,6 +31,13 @@ var ajax = {
         else {  // ... or NO (RED)
           var marker = new google.maps.Marker({
             position: {lat: locations[i].loc[0].lat, lng: locations[i].loc[0].lng},
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: 'black',
+              fillOpacity: 1,
+              strokeColor: 'rgba(251, 148, 189, 0.82)'
+            },
             map: map,  
             title: locations[i].loc[0].lat + " " + locations[i].loc[0].lng
           })

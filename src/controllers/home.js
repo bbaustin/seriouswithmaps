@@ -15,11 +15,6 @@ HomeController.route('/getAll')
   })
 
 
-
-
-
-
-
 /* DELETE /tasks/:id        
 // working! was throwing an error, because you were res.json'ing, then trying to render a page (or vice versa). This allows ANY USER to type in an ID (which is ostensibly hidden?) in the URL and delete that in the DB.  */
 // getting a favico error 
@@ -27,13 +22,11 @@ HomeController.route('/:id')
   .get(function(req, res, next) {
     console.log(req.params.id);
     Location.findByIdAndRemove(req.params.id, function (err, task) {
-    console.log(req.params.id);
-    if (err) return next(err);
+      console.log(req.params.id);
+      if (err) return next(err);
       res.json(task);
     });
   });
-
-
 
 
 HomeController.route('/?') 
@@ -44,14 +37,14 @@ HomeController.route('/?')
     if (req.body.goodOr === "yes") {
       Location.create({
         loc: [{lat: req.body.lat1, lng: req.body.long1}],
-        userId: req.body.goodOr, //this works. because it's a form? 
+        userId: req.body.goodOr, 
         goodOr: true
       })
     }
     else {
       Location.create({
         loc: [{lat: req.body.lat1, lng: req.body.long1}],
-        userId: req.body.goodOr, //this works. because it's a form? 
+        userId: req.body.goodOr, 
         goodOr: false
       })
     } 
