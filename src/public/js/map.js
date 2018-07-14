@@ -29,6 +29,26 @@ function getLocation() {
       centWin.setContent('You are here');
       // centWin.open(map);
 
+      marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        draggable: true,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        zIndex: 99999
+        // title: 'Hello World!', 
+        //testThing: 123 //actually works? 
+      });
+
+      marker.addListener('click', function() {
+        infowindow.open(map, marker);
+      })
+      marker.addListener('dragend', function(marker) {
+        latHolder.value=marker.latLng.lat();
+        arr[0] = marker.latLng.lat();
+        longHolder.value=marker.latLng.lng();
+        arr[1] = marker.latLng.lng(); 
+      });
+
       //LATER, make loading screen until this happens. 
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
@@ -72,7 +92,7 @@ function initMap() {
   // setting a marker upon clicking. //
   ////////////////////////////////////
   var floaty = document.getElementById('floaty');
-  var floatyHolder = document.getElementById('floatyholder');
+  var floatyHolder = document.getElementsByClassName('floatyholder')[0];
   var contentBox = "<small>Hello World it me</small>"
   var infowindow = new google.maps.InfoWindow({
     content: contentBox
@@ -180,7 +200,7 @@ function CenterControl(controlDiv, map) {
 }
 
 function submission() {
-    var floatyHolder = document.getElementById('floatyholder');
+    var floatyHolder = document.getElementsByClassName('floatyholder')[0];
     floatyHolder.style.zIndex = -10;
     var ok = document.getElementsByName('goodOr')[0];
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
@@ -205,70 +225,12 @@ function submission() {
     }
   }
 
+$('nav p:first-child').on('click', function() {
+  $('.about').css('z-index', 10); 
+})
   
 
-
-
-
-
-
-
-
-///GRAVEYARD
-
-// after the counter % 2 = 0 thing: 
-
-      // var marker = new google.maps.Marker({
-      //   position: myLatLng,
-      //   map: map,
-      //   title: 'Hello World!', 
-      //   draggable: true,
-      //   icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
-      //   testThing: 123 //actually works? 
-      // });
-
-
-
-  // function placeParkMarker(latLng, map) {
-  //   var marker = new google.maps.Marker({
-  //     position: latLng,
-  //     icon: icons,
-  //     map: map
-  //   });
-  //   console.log(latLng.lat);
-  // }
-
-
-  //  setting a custom marker upon double clicking
-
-  // map.addListener('rightclick', function(loc) {
-  //   console.log('second');
-  //   placeParkMarker(loc.latLng, map);
-  // }) 
-
-
-
-// google.maps.event.addListener(m, 'dragend', function(ev){
-//     alert(ll.lat() + ' ' + ll.lng()); // always the same LatLng-Object...
-//     alert(m.getPosition()); // new LatLng-Object after dragend-event...
-// });
-
-
-
-
-//RYO CODE
-    // Less is more. 
-
-    // //Single Responsibility Principle 
-    // function() {
-    //   var hoge = 1;
-    //   function countUp(count) {
-    //     return count + 1;
-    //   } 
-    //   return countUp(hoge);
-    // }
-    // var Bar = {
-    //   countDown: function(count) { return count - 1 ;},
-    // }
-    // Bar.countDown(hoge); // => 0
-
+$('.about').on('click',function() {
+  $(this).css('z-index', '-10');
+  console.log('floaty holder clikced');
+})
