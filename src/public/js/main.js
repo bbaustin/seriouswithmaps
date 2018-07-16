@@ -27,6 +27,7 @@ var ajax = {
             map: map,  
             title: locations[i].loc[0].lat + " " + locations[i].loc[0].lng
           })
+          // add info window thing here 
         }
         else {  // ... or NO (RED)
           var marker = new google.maps.Marker({
@@ -41,33 +42,13 @@ var ajax = {
             map: map,  
             title: locations[i].loc[0].lat + " " + locations[i].loc[0].lng
           })
+          // add info window thing here 
         }
 
       }
     }
-    console.log(markers);        
-
   },
   error: function(err) {
     console.log(err);
   }
 };
-
-// var ajax2 = {
-//           url: '/',
-//           type: 'POST',
-//           dataType: 'json',
-//           success: function(msg) {
-//             alert('Email Sent');
-//             console.log($('.tester'));
-//             console.log(msg);
-//           },
-//           error: function(err) {
-//             console.log(err);
-//           }               
-//         };
-
-
-// $('#submit').click(function(event) {
-//   $.ajax(ajax2);
-// });

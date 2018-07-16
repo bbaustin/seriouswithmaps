@@ -1,6 +1,8 @@
 var dotenv     = require('dotenv').config({silent:true}),
     express    = require('express'),
     app        = express(),
+    favicon    = require('serve-favicon'),
+    path       = require('path'),
     exphbs     = require('express-handlebars'),
     bodyParser = require('body-parser'),
     session    = require('express-session');
@@ -17,6 +19,8 @@ app.set('view engine', 'hbs');
 app.set('views', __dirname + '/views');
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 app.use(session({
   name: 'sessionclass',

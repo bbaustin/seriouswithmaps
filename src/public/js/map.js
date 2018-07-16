@@ -1,6 +1,4 @@
 var map,
-    tLat = 35.6895,
-    tLng = 139.6917,
     pos,
     centWin,
     arr = [],
@@ -11,10 +9,9 @@ var map,
     counter = 0,
     latHolder = document.getElementById('lat1'),
     longHolder = document.getElementById('long1'),
-    changed = false;
+    changed = false,
+    yellowArray = [];
     
-
-
 
 function getLocation() {
   var save;
@@ -35,12 +32,13 @@ function getLocation() {
         draggable: true,
         icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
         zIndex: 99999
-        // title: 'Hello World!', 
-        //testThing: 123 //actually works? 
       });
+      yellowArray.push(marker);
+
 
       marker.addListener('click', function() {
-        infowindow.open(map, marker);
+        // infowindow.open(map, marker);
+        console.log(yellowArray[0]);
       })
       marker.addListener('dragend', function(marker) {
         latHolder.value=marker.latLng.lat();
@@ -53,7 +51,7 @@ function getLocation() {
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
       initialLocation.push(position.coords.latitude, position.coords.longitude)
-      $('.two').append('<p id="lat2">'+arr[0]+'</p><p id="long2">'+arr[1]+'</p>'); //7/6: do I still need this? 
+      // $('.two').append('<p id="lat2">'+arr[0]+'</p><p id="long2">'+arr[1]+'</p>'); //7/6: do I still need this? 
 
       latHolder.value=arr[0];
       longHolder.value=arr[1];
@@ -64,12 +62,11 @@ function getLocation() {
     // Browser doesn't support Geolocation
     handleLocationError(false, centWin, map.getCenter());
     pos = {
-              lat: tLat,
-              lng: tLng
+              lat: 35.689487,
+              lng: 139.691706
             };
     }
 }
-
 
 function initMap() {
   getLocation();
@@ -93,7 +90,7 @@ function initMap() {
   ////////////////////////////////////
   var floaty = document.getElementById('floaty');
   var floatyHolder = document.getElementsByClassName('floatyholder')[0];
-  var contentBox = "<small>Hello World it me</small>"
+  var contentBox = "<small>Add backend stuff later</small>" 
   var infowindow = new google.maps.InfoWindow({
     content: contentBox
   });
@@ -104,7 +101,7 @@ function initMap() {
   //////////////
 
   function makeSureOneYellow() {
-    console.log(changed);
+    console.log('changed: ' + changed);
     if (changed && marker) {
       marker.setMap(null);
     }
@@ -115,12 +112,13 @@ function initMap() {
     changed=true;
     makeSureOneYellow();
     placeMarker(loc.latLng, map);
-    
 
+    
+    //PROBLEM HERE? 
     latHolder.value=loc.latLng.lat();
     arr[0] = loc.latLng.lat();
     longHolder.value=loc.latLng.lng();
-    arr[1] = loc.latLng.lat(); 
+    arr[1] = loc.latLng.lng(); 
   }) 
 
   function placeMarker(latLng, map) {
@@ -130,22 +128,17 @@ function initMap() {
       map: map,
       draggable: true,
       icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'//,
-      // title: 'Hello World!', 
-      //testThing: 123 //actually works? 
     });
     marker.setZIndex(99999);
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     })
+    yellowArray.push(marker);
     marker.addListener('dragend', function(marker) {
       latHolder.value=marker.latLng.lat();
       arr[0] = marker.latLng.lat();
       longHolder.value=marker.latLng.lng();
       arr[1] = marker.latLng.lng(); 
-
-      // console.log('latHolder.value: ' + latHolder.value + ', arr[0]: ' + arr[0] + ', marker.latLng.lat(): ' + marker.latLng.lat());
-      // console.log('longHolder.value: ' + longHolder.value + ', arr[1]: ' + arr[1] + ', marker.latLng.lat(): ' + marker.latLng.lng());
-
     })
   }
 
@@ -158,6 +151,7 @@ function initMap() {
 
   $('h1').on('click', function() {  //recenter marker
     var myLatLng;
+    changed=true;
     makeSureOneYellow();
     myLatLng = {lat: initialLocation[0], lng: initialLocation[1]}; //totally unneeded here, i think
     latHolder.value=initialLocation[0];
@@ -166,7 +160,6 @@ function initMap() {
     arr[1] = initialLocation[1];
 
     placeMarker(myLatLng, map);  // do NOT place new marker.
-    changed=true;
   })
 
 
@@ -200,29 +193,48 @@ function CenterControl(controlDiv, map) {
 }
 
 function submission() {
+    changed = true;
+    yellowArray[yellowArray.length-1].setMap(null); 
+
     var floatyHolder = document.getElementsByClassName('floatyholder')[0];
     floatyHolder.style.zIndex = -10;
     var ok = document.getElementsByName('goodOr')[0];
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
 
     if (ok.value === "yes") {
+      console.log('yes hit');
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: map, 
-        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+        icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 6,
+                fillColor: 'black',
+                fillOpacity: 1,
+                strokeColor: 'rgba(91, 214, 191, .82)'
+        },
+        zIndex: 999999
       });
-      marker.setZIndex(99999);
-      console.log(marker.position);
     } else if (ok.value === "no") {
+      console.log('no hit');
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
+        icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: 'black',
+              fillOpacity: 1,
+              strokeColor: 'rgba(251, 148, 189, 0.82)'
+        },
+        zIndex: 999999
       });
-      marker.setZIndex(99999);
-      console.log(marker.position);
     } else {
       console.log('haha');
     }
+    console.log('marker: ' + marker);
+    console.log('marker.position: ' + marker.position);
+    console.log('marker.icon: ' + marker.icon); 
   }
 
 $('nav p:first-child').on('click', function() {
@@ -232,5 +244,8 @@ $('nav p:first-child').on('click', function() {
 
 $('.about').on('click',function() {
   $(this).css('z-index', '-10');
-  console.log('floaty holder clikced');
 })
+
+// $('.floatyholder').on('click', function() {
+//   $(this).css('z-index', '-10');
+// })
