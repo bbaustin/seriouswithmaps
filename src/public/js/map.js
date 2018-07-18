@@ -77,6 +77,88 @@ function initMap() {
   centWin = new google.maps.InfoWindow;
 
 
+
+  var ajax = {
+  url: '/getAll',
+  type: 'get',
+  dataType: 'json',
+  success: function(locations) {
+    // console.log(locations[1]);
+    var markers = [];
+    for (var i = 0; i < locations.length; i++) {
+
+      
+      // console.log(locations[i]);
+
+      if (locations[i].loc[0].lat && locations[i].loc[0].lng){
+        markers.push(locations[i]); // 7/6: Not sure if needed. Might be useful to access all markers from front end. Hide all, etc. 
+        // console.log(markers);
+        var contentBox = "";
+        var infowindow = new google.maps.InfoWindow({
+          content: contentBox
+        });
+
+
+        if (locations[i].goodOr) {  // checks if it's YES (GREEN) ...   7/6: Note, this is very similar to the DRYer thing you made in map.js. Is it better to combine into one file so that function is made availble? Or load map.js first in the footer.hbs
+          var marker = new google.maps.Marker({
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 6,
+                fillColor: 'black',
+                fillOpacity: 1,
+                strokeColor: 'rgba(91, 214, 191, .82)'
+            },            
+            position: {lat: locations[i].loc[0].lat, lng: locations[i].loc[0].lng},
+            map: map,  
+            title: locations[i].loc[0].lat + " " + locations[i].loc[0].lng,
+            identification: locations[i]._id
+          })
+          marker.addListener('click', function() {
+            console.log(this.identification);
+            for (var i = 0; i < markers.length; i++) {
+              console.log(markers[i]._id);
+              if (markers[i]._id === this.identification) { 
+                infowindow.setContent("<ul><li>Latitude: " + markers[i].loc[0].lat + "</li> <li>Longitude: " + markers[i].loc[0].lng + "</li><li>Date: " + markers[i].time.slice(0, 10) + "</li><li>Time: " + markers[i].time.slice(11, 16));
+              }
+            }
+            infowindow.open(map, this);
+          })          
+        }
+        else {  // ... or NO (RED)
+          var marker = new google.maps.Marker({
+            position: {lat: locations[i].loc[0].lat, lng: locations[i].loc[0].lng},
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 6,
+              fillColor: 'black',
+              fillOpacity: 1,
+              strokeColor: 'rgba(251, 148, 189, 0.82)'
+            },
+            map: map,  
+            title: locations[i].loc[0].lat + " " + locations[i].loc[0].lng,
+            identification: locations[i]._id
+          })
+          marker.addListener('click', function() {
+            console.log(this.identification);
+            for (var i = 0; i < markers.length; i++) {
+              console.log(markers[i]._id);
+              if (markers[i]._id === this.identification) { 
+                infowindow.setContent("<ul><li>Latitude: " + markers[i].loc[0].lat + "</li> <li>Longitude: " + markers[i].loc[0].lng + "</li><li>Date: " + markers[i].time.slice(0, 10) + "</li><li>Time: " + markers[i].time.slice(11, 16));
+              }
+            }
+            infowindow.open(map, this);
+          })
+        }
+
+      }
+    }
+  },
+  error: function(err) {
+    console.log(err);
+  }
+};
+
+
   function handleLocationError(browserHasGeolocation, centWin, pos) {
     centWin.setPosition(pos);
     centWin.setContent(browserHasGeolocation ?
@@ -84,6 +166,10 @@ function initMap() {
                           'Error: Your browser doesn\'t support geolocation.');
     centWin.open(map);
   }
+
+  $(document).ready(function(){
+    $.ajax(ajax);
+  });
 
   /////////////////////////////////////
   // setting a marker upon clicking. //
@@ -245,7 +331,3 @@ $('nav p:first-child').on('click', function() {
 $('.about').on('click',function() {
   $(this).css('z-index', '-10');
 })
-
-// $('.floatyholder').on('click', function() {
-//   $(this).css('z-index', '-10');
-// })
