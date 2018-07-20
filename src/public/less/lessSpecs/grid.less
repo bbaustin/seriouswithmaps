@@ -25,7 +25,7 @@ html, body {
   border-radius: 15px;
   text-align: center;
   z-index: -10;
-  background-color: @pink;
+  background-color: @grey;
 }
 .north {
   height: 40px;
@@ -43,6 +43,34 @@ h1 {
 #lat1, #long1 {
   display: none;
 }
+.presser {
+  width: 50px;
+  height: 33px;
+  margin: -2px;
+  display: inline-block;
+  line-height: 33px;
+  color: @white;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -4px black ;
+}
+.yes {
+  background: @teal;
+  border-radius: 10% 0 0 10%;
+}
+.no {
+  background: @pink;
+  border-radius: 0 10% 10% 0;
+}
+.pressedp {
+  box-shadow: none;
+  background: @pressed-pink;
+}
+.pressedt {
+  box-shadow: none;
+  background: @pressed-teal;
+}
+
+
 nav {
   float:right;
   top: 0px;

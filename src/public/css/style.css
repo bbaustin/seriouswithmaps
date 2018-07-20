@@ -26,7 +26,7 @@ body {
   border-radius: 15px;
   text-align: center;
   z-index: -10;
-  background-color: rgba(251, 148, 189, 0.9);
+  background-color: rgba(78, 78, 78, 0.75);
 }
 .north {
   height: 40px;
@@ -44,6 +44,32 @@ h1 {
 #lat1,
 #long1 {
   display: none;
+}
+.presser {
+  width: 50px;
+  height: 33px;
+  margin: -2px;
+  display: inline-block;
+  line-height: 33px;
+  color: #fafafa;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px -4px black;
+}
+.yes {
+  background: rgba(91, 214, 191, 0.82);
+  border-radius: 10% 0 0 10%;
+}
+.no {
+  background: rgba(251, 148, 189, 0.9);
+  border-radius: 0 10% 10% 0;
+}
+.pressedp {
+  box-shadow: none;
+  background: rgba(200, 118, 151, 0.9);
+}
+.pressedt {
+  box-shadow: none;
+  background: rgba(72, 171, 152, 0.82);
 }
 nav {
   float: right;

@@ -331,3 +331,31 @@ $('nav p:first-child').on('click', function() {
 $('.about').on('click',function() {
   $(this).css('z-index', '-10');
 })
+
+
+//definitely dryer way to do this
+$('.yes').on('click', function() {
+  console.log('yes');
+  $(this).toggleClass('pressedt');
+  if ($(this).hasClass('pressedt')) { 
+    $('.no').removeClass('pressedp');
+  }
+  else {
+    $('.no').addClass('pressedp');
+  }
+})
+
+$('.no').on('click', function() {
+  console.log('no');
+  $(this).toggleClass('pressedp');
+  if ($(this).hasClass('pressedp')) { 
+    $('.yes').removeClass('pressedt');
+  }
+  else {
+    $('.yes').addClass('pressedt');
+  }
+})
+
+
+
+
