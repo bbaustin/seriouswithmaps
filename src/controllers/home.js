@@ -31,17 +31,29 @@ HomeController.route('/:id')
 
 HomeController.route('/?') 
   .get(function(req, res, next) {
-    res.render('home')
+    res.render('home', {
+      message: 'PLACE A PARKING SPOT'
+    })
   })
   .post(function(req, res, next) {
-    // if (req.body.goodOr === "yes") {
-      Location.create({
-        loc: [{lat: req.body.lat1, lng: req.body.long1}],
-        userId: 'Not Set!', 
-        goodOr: req.body.goodOr,
-        ticket: req.body.ticket,
-        stolen: req.body.stolen
-      })
+      if ((req.body.goodOr === '')) {
+        res.render('home', {
+          message: 'Please choose yes or no'
+        })
+        console.log('req.body.goodOr === empty');
+        // res.render('signup', {
+        //   message: !boss ? 'Please complete all fields!' : false
+        // });
+      }
+      else {
+        Location.create({
+          loc: [{lat: req.body.lat1, lng: req.body.long1}],
+          userId: 'Not Set!', 
+          goodOr: req.body.goodOr,
+          ticket: req.body.ticket,
+          stolen: req.body.stolen
+        })
+      }
     // }
     // else {
     //   Location.create({

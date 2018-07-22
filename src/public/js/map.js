@@ -182,10 +182,6 @@ function initMap() {
   });
 
 
-  ////////////////
-  //   CLICK!  // 
-  //////////////
-
   function makeSureOneYellow() {
     console.log('changed: ' + changed);
     if (changed && marker) {
@@ -233,6 +229,14 @@ function initMap() {
       controlText.style.backgroundColor = "yellow";
       counter++;
       floatyHolder.style.zIndex = 10;
+      
+      // RESETTING THE FORM
+      $('.presser').removeClass('pressedt');
+      $('.presser').removeClass('pressedp');
+      $('.additionalOptions').css('display', 'none');
+      document.getElementsByName('goodOr')[0].value = "";
+      document.getElementsByName('ticket')[0].value = "";
+      document.getElementsByName('stolen')[0].value = "";
     });
 
   $('h1').on('click', function() {  //recenter marker
@@ -279,15 +283,13 @@ function CenterControl(controlDiv, map) {
 }
 
 function submission() {
-    changed = true;
-    yellowArray[yellowArray.length-1].setMap(null); 
-
     var floatyHolder = document.getElementsByClassName('floatyholder')[0];
-    floatyHolder.style.zIndex = -10;
-    var ok = document.getElementsByName('goodOr')[0];
+    var ok  = document.getElementsByName('goodOr')[0];
+    // var ok2 = document.getElementsByName('ticket')[0];
+    // var ok3 = document.getElementsByName('stolen')[0];
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
 
-    if (ok.value === "yes") {
+    if (ok.value === "true") {
       console.log('yes hit');
       var marker = new google.maps.Marker({
         position: myLatLng,
@@ -301,7 +303,11 @@ function submission() {
         },
         zIndex: 999999
       });
-    } else if (ok.value === "no") {
+      floatyHolder.style.zIndex = -10;
+      changed = true;
+      yellowArray[yellowArray.length-1].setMap(null);
+
+    } else if (ok.value === "false") {
       console.log('no hit');
       var marker = new google.maps.Marker({
         position: myLatLng,
@@ -315,31 +321,35 @@ function submission() {
         },
         zIndex: 999999
       });
+      floatyHolder.style.zIndex = -10;
+      changed = true;
+      yellowArray[yellowArray.length-1].setMap(null); 
+
     } else {
-      console.log('haha');
+      $('#floaty h1').text('Please select Yes or No');
     }
   }
 
 $('nav p:first-child').on('click', function() {
   $('.about').css('z-index', 10); 
 })
-  
 
 $('.about').on('click',function() {
   $(this).css('z-index', '-10');
 })
 
 
-var fuck = $('input'[3]);
-var fuckk = $('input')[3]; 
 //definitely dryer way to do this
 $('.yes').on('click', function() {
   console.log($('.presser').index(this));
   // console.log($('.presser')[($('.presser').index(this) + 1)]);
-  $(this).toggleClass('pressedt');
+  // $(this).toggleClass('pressedt');
   
   if ($('.presser').index(this) === 0) {
     $('input')[2].value = true;
+    $('.additionalOptions').css('display', 'none');
+    document.getElementsByName('ticket')[0].value = "";
+    document.getElementsByName('stolen')[0].value = "";
   }
   else if ($('.presser').index(this) === 2) {
     $('input')[3].value = true;
@@ -347,6 +357,9 @@ $('.yes').on('click', function() {
   else if ($('.presser').index(this) === 4) {
     $('input')[4].value = true;
   }
+
+
+  
 
   // if ($(this).hasClass('pressedt')) { 
   //   $('.presser')[($('.presser').index(this) + 1)].removeClass('pressedp');
@@ -359,7 +372,7 @@ $('.yes').on('click', function() {
 $('.no').on('click', function() {
   console.log($('.presser').index(this));
   console.log($('.presser').index(this) + 1);
-  $(this).toggleClass('pressedp');
+  // $(this).toggleClass('pressedp');
 
   if ($('.presser').index(this) === 1) {
     $('input')[2].value = false;

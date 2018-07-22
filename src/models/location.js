@@ -6,8 +6,8 @@ var LocationSchema = new mongoose.Schema({
   loc: [{lat: Number, lng: Number}],
   userId: String,
   goodOr: Boolean,
-  ticket: false,
-  stolen: false,
+  ticket: Boolean,
+  stolen: Boolean,
   time: { type: Date, default: Date.now }
 }, {
   strict: false
