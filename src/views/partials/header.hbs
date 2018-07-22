@@ -36,11 +36,24 @@
       <form action="/" method="post" target="votar" >
         <input type="text" id="long1" name="long1">
         <input type="text" id="lat1" name="lat1">
-        <input type="text" name="goodOr">     
+        <input type="text" id="goodOr" name="goodOr">     
+        <input type="text" id="ticket" name="ticket">     
+        <input type="text" id="stolen" name="stolen">     
+
+
         
         <p>Was this a good parking spot?</p>
         <div class="presser yes">Yes</div> <div class="presser no">No</div>
-        <input id="submit" type="submit" onclick="submission()">
+       
+        <div class="additionalOptions">
+          <p>Did your bike get a ticket?</p>
+          <div class="presser yes">Yes</div> <div class="presser no">No</div>
+
+          <p>Was your bike taken/stolen?</p>
+          <div class="presser yes">Yes</div> <div class="presser no">No</div>
+        </div>
+
+        <input class="presser" id="submit" type="submit" onclick="submission()">
       </form>
     </div>
   </div>

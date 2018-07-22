@@ -318,9 +318,6 @@ function submission() {
     } else {
       console.log('haha');
     }
-    console.log('marker: ' + marker);
-    console.log('marker.position: ' + marker.position);
-    console.log('marker.icon: ' + marker.icon); 
   }
 
 $('nav p:first-child').on('click', function() {
@@ -333,27 +330,56 @@ $('.about').on('click',function() {
 })
 
 
+var fuck = $('input'[3]);
+var fuckk = $('input')[3]; 
 //definitely dryer way to do this
 $('.yes').on('click', function() {
-  console.log('yes');
+  console.log($('.presser').index(this));
+  // console.log($('.presser')[($('.presser').index(this) + 1)]);
   $(this).toggleClass('pressedt');
-  if ($(this).hasClass('pressedt')) { 
-    $('.no').removeClass('pressedp');
+  
+  if ($('.presser').index(this) === 0) {
+    $('input')[2].value = true;
   }
-  else {
-    $('.no').addClass('pressedp');
+  else if ($('.presser').index(this) === 2) {
+    $('input')[3].value = true;
   }
+  else if ($('.presser').index(this) === 4) {
+    $('input')[4].value = true;
+  }
+
+  // if ($(this).hasClass('pressedt')) { 
+  //   $('.presser')[($('.presser').index(this) + 1)].removeClass('pressedp');
+  // }
+  // else {
+  //   $('.presser')[($('.presser').index(this) + 1)].addClass('pressedp');
+  // }
 })
 
 $('.no').on('click', function() {
-  console.log('no');
+  console.log($('.presser').index(this));
+  console.log($('.presser').index(this) + 1);
   $(this).toggleClass('pressedp');
-  if ($(this).hasClass('pressedp')) { 
-    $('.yes').removeClass('pressedt');
+
+  if ($('.presser').index(this) === 1) {
+    $('input')[2].value = false;
   }
-  else {
-    $('.yes').addClass('pressedt');
+  else if ($('.presser').index(this) === 3) {
+    $('input')[3].value = false;
   }
+  else if ($('.presser').index(this) === 5) {
+    $('input')[4].value = false;
+  }
+  // if ($(this).hasClass('pressedp')) { 
+  //   $('.presser')[0].removeClass('pressedt');
+  // }
+  // else {
+  //   $('.presser')[($('.presser').index(this) - 1)].addClass('pressedt');
+  // }
+
+
+
+  $('.additionalOptions').css('display', 'initial');
 })
 
 

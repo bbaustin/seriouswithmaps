@@ -53,7 +53,9 @@ h1 {
   line-height: 33px;
   color: #fafafa;
   cursor: pointer;
-  box-shadow: 0px 2px 4px -4px black;
+  -webkit-box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.75);
 }
 .yes {
   background: rgba(91, 214, 191, 0.82);
@@ -71,6 +73,9 @@ h1 {
   box-shadow: none;
   background: rgba(72, 171, 152, 0.82);
 }
+.additionalOptions {
+  display: none;
+}
 nav {
   float: right;
   top: 0px;
@@ -83,93 +88,18 @@ nav p {
 .lc {
   float: left;
 }
-#fakeSubmit {
-  background-color: white;
-  border-radius: 10%;
-  display: inline-block;
-  padding: 10px;
-}
-.containerH,
-.searchesH {
-  display: flex;
-  margin-top: 20px;
-  flex-grow: 1;
-  margin-left: 15%;
-  margin-right: 15%;
-  justify-content: center;
-  text-align: center;
-}
-.containerV {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin: 0px 30px 0px 30px;
-}
 header {
   margin: 0;
 }
 input {
-  margin-top: 20px;
-}
-button {
+  color: #4e4e4e;
+  background: #feb709;
   width: 100px;
-  height: 33px;
-  border-radius: 33px;
-  background-color: #319c8a;
-  border: none;
-  font-family: 'Cutive Mono', monospace;
+  display: initial;
+  border-radius: 10%;
+  font-family: 'Muli', sans-serif;
   font-size: 16px;
-}
-button:hover {
-  background-color: #38b6a0;
-}
-button:focus {
-  outline: none;
-}
-button:active {
-  outline: none;
-  background-color: #319c8a;
-}
-.logout {
-  position: absolute;
-  right: 30px;
-  top: 55px;
-}
-.logoutB {
-  visibility: hidden;
-}
-input:first-child {
-  margin-top: 0;
-}
-.containerV h3 {
-  margin: 0;
-}
-@media (max-width: 700px) {
-  .containerH {
-    margin-left: 10%;
-    margin-right: 10%;
-  }
-  .searchesH {
-    margin-left: 10%;
-    margin-right: 10%;
-    display: block;
-  }
-  input[type="text"],
-  input[type="password"],
-  input[type="email"] {
-    width: 320px;
-    height: 40px;
-  }
-  button {
-    width: 90px;
-    height: 23px;
-  }
-  .logout {
-    visibility: hidden;
-  }
-  .logoutB {
-    visibility: visible;
-    margin-top: 30px;
-    margin-bottom: 20px;
-  }
+  font-weight: 300;
+  margin: 0px;
+  padding: 0px;
 }

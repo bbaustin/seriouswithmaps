@@ -51,7 +51,9 @@ h1 {
   line-height: 33px;
   color: @white;
   cursor: pointer;
-  box-shadow: 0px 2px 4px -4px black ;
+  -webkit-box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.75);
+  box-shadow: 0px 4px 4px -2px rgba(0,0,0,0.75);
 }
 .yes {
   background: @teal;
@@ -69,7 +71,9 @@ h1 {
   box-shadow: none;
   background: @pressed-teal;
 }
-
+.additionalOptions {
+  display: none;
+}
 
 nav {
   float:right;
@@ -83,122 +87,105 @@ nav {
 .lc {
   float: left;
 }
-// .two {
-//   background: @teal;
-//   float: right;
-//   display: none;
-// }
-#fakeSubmit {
-  background-color: white;
-  border-radius: 10%;
-  display: inline-block;
-  padding: 10px;
-}
 
-.containerH, .searchesH {
-  display: flex;
-  margin-top: 20px;
-  flex-grow: 1;
-  margin-left: 15%;
-  margin-right: 15%;
-  justify-content: center;
-  text-align: center;
-}
-
-.containerV {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  margin: 0px 30px 0px 30px;
-}
 
 header {
   margin: 0;
 }
 
 input {
-  margin-top: 20px;
-}
-
-
-
-input[type="text"]:focus, input[type="password"]:focus, input[type="email"] {
-  // outline: none;
-  // background-color: rgba(60, 60, 60, .65);
-}
-
-button {
+  color: @black;
+  background: #feb709;
   width: 100px;
-  height: 33px;
-  border-radius: 33px;
-  background-color: #319c8a;
-  border:none;
-  font-family: 'Cutive Mono', monospace;
-  font-size:16px;
+  display: initial;
+  border-radius: 10%;
+  font-family: 'Muli', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 0px;
+  padding: 0px;
 }
 
-button:hover {
-  background-color: @detail;
-}
 
-button:focus {
-  outline:none;
-}
 
-button:active {
-  outline: none;
-  background-color: #319c8a;
-}
+// input[type="text"]:focus, input[type="password"]:focus, input[type="email"] {
+//   // outline: none;
+//   // background-color: rgba(60, 60, 60, .65);
+// }
 
-.logout {
-  position: absolute;
-  right: 30px;
-  top: 55px;
-}
 
-.logoutB {
-  visibility: hidden;
-}
+// // .two {
+// //   background: @teal;
+// //   float: right;
+// //   display: none;
+// // }
+// // #fakeSubmit {
+// //   background-color: white;
+// //   border-radius: 10%;
+// //   display: inline-block;
+// //   padding: 10px;
+// // }
 
-input:first-child {
-  margin-top: 0;
-}
+// // .containerH, .searchesH {
+// //   display: flex;
+// //   margin-top: 20px;
+// //   flex-grow: 1;
+// //   margin-left: 15%;
+// //   margin-right: 15%;
+// //   justify-content: center;
+// //   text-align: center;
+// // }
 
-.containerV h3 {
-  margin: 0;
-}
+// // .containerV {
+// //   display: flex;
+// //   flex-direction: column;
+// //   text-align: left;
+// //   margin: 0px 30px 0px 30px;
+// // }
+
+// button {
+//   width: 100px;
+//   height: 33px;
+//   border-radius: 33px;
+//   background-color: #319c8a;
+//   border:none;
+//   font-family: 'Cutive Mono', monospace;
+//   font-size:16px;
+// }
+
+// button:hover {
+//   background-color: @detail;
+// }
+
+// button:focus {
+//   outline:none;
+// }
+
+// button:active {
+//   outline: none;
+//   background-color: #319c8a;
+// }
+
+// .logout {
+//   position: absolute;
+//   right: 30px;
+//   top: 55px;
+// }
+
+// .logoutB {
+//   visibility: hidden;
+// }
+
+// input:first-child {
+//   margin-top: 0;
+// }
+
+// .containerV h3 {
+//   margin: 0;
+// }
 
 @media (max-width: 700px) {
 
-.containerH {
-    margin-left: 10%;
-    margin-right: 10%;
-  }
 
-  .searchesH {
-    margin-left: 10%;
-    margin-right: 10%;
-    display: block;
-  }
-
-  input[type="text"], input[type="password"], input[type="email"] {
-    width: 320px;
-    height: 40px;
-  }
-
-  button {
-    width: 90px;
-    height: 23px;
-  }
-
-  .logout {
-    visibility: hidden;
-  }
-
-  .logoutB {
-    visibility: visible;
-    margin-top: 30px;
-    margin-bottom: 20px;
-  }
 
 }

@@ -34,20 +34,22 @@ HomeController.route('/?')
     res.render('home')
   })
   .post(function(req, res, next) {
-    if (req.body.goodOr === "yes") {
+    // if (req.body.goodOr === "yes") {
       Location.create({
         loc: [{lat: req.body.lat1, lng: req.body.long1}],
-        userId: req.body.goodOr, 
-        goodOr: true
+        userId: 'Not Set!', 
+        goodOr: req.body.goodOr,
+        ticket: req.body.ticket,
+        stolen: req.body.stolen
       })
-    }
-    else {
-      Location.create({
-        loc: [{lat: req.body.lat1, lng: req.body.long1}],
-        userId: req.body.goodOr, 
-        goodOr: false
-      })
-    } 
+    // }
+    // else {
+    //   Location.create({
+    //     loc: [{lat: req.body.lat1, lng: req.body.long1}],
+    //     userId: req.body.goodOr, 
+    //     goodOr: false
+    //   })
+    // } 
   });
 
  
