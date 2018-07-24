@@ -30,8 +30,8 @@ SearchController.route('/?')
   .post(function(req, res, next) {
     console.log('posted');
     Location.create({
-      loc: [{lat: 135, lng: 35}],
-      userId: 'test',
+      loc: [{lat: 100, lng: 33}],
+      userId: 'double test',
       goodOr: true
     })
   })

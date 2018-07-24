@@ -4,19 +4,100 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="495246019680-tqnrco8bt75ffgvop6i09k9707pqhqjd.apps.googleusercontent.com">
+    <link href="https://fonts.googleapis.com/css?family=Muli|Roboto+Mono" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
   <body>
+    <div class="north">
+      <div class="lc">
+        <h1>Jitenshark</h1>
+      </div>
 
+      <div class="loading">
+        <h1>LOADING!</h1>
+      </div>
 
+      <div class="rc">
+        <nav>
+          <ul>
+            <li><p>about</p></li>
+            <li><p>lang</p></li>
+            <li><p>login</p></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+   <!--  <div class="two">
+      <div id="foundSearches"></div>
+    </div> -->
+
+    <form action="/" method="post" target ="votar" id="invisible">
+
+    </form>
+  <div id="floatyholder" class="floatyholder "> 
     <div id="floaty">
-      <h1>Add parking spot</h1>
-      <!-- <iframe name="votar" style="display:none;"></iframe> -->  <!-- https://stackoverflow.com/questions/2866063/submit-form-without-page-reloading -->
-      <form method="post" action="/search/getAll"> <!-- target="votar" -->
-        <input type="text" name="ok" value=""><p>yes</p>       
-        <input id="submit" type="submit" onclick="submission()">Submit</div>
+      <h1>Please place a marker</h1>
+      <iframe name="votar" style="display:none;"></iframe>  <!-- https://stackoverflow.com/questions/2866063/submit-form-without-page-reloading -->
+      <form action="/" method="post" target="votar" >
+        <input type="text" id="long1" name="long1">
+        <input type="text" id="lat1" name="lat1">
+        <input type="text" id="goodOr" name="goodOr">     
+        <input type="text" id="ticket" name="ticket">     
+        <input type="text" id="stolen" name="stolen">     
+
+
+        
+        <p>Was this a good parking spot?</p>
+        <div class="presser yes">Yes</div> <div class="presser no">No</div>
+       
+        <div class="additionalOptions">
+          <p>Did your bike get a ticket?</p>
+          <div class="presser yes">Yes</div> <div class="presser no">No</div>
+
+          <p>Was your bike taken/stolen?</p>
+          <div class="presser yes">Yes</div> <div class="presser no">No</div>
+        </div>
+
+        <input class="presser" id="submit" type="submit" onclick="submission()">
       </form>
     </div>
+  </div>
+
+  <div id="floatyholder" class="about">
+    <div id="floaty">
+      <h1>Jitensha + Park = Jitenshark</h1>
+      <p>Bike parking in Japan is extremely confusing. It's unclear where to park, your bike randomly gets tickets pinned to it, and in some unfortunate cases, your bike will be gone when you return to it.</p>
+      <p>Jitenshark is an attempt to crowdsource ideal locations to park your bike. Users will use the map to find safe spots: pink markers mean "don't park here!"; green markers mean "it's probably safe to park here!"</p>
+      <p>Registered users may submit their own locations. Prizes are awarded to lucky users.</p>
+    </div>
+  </div>
+
+
+<!--    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <script>
+      function onSignIn(googleUser) {
+        // Useful data for your client-side scripts:
+        var profile = googleUser.getBasicProfile();
+        console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+        console.log('Full Name: ' + profile.getName());
+        console.log('Given Name: ' + profile.getGivenName());
+        console.log('Family Name: ' + profile.getFamilyName());
+        console.log("Image URL: " + profile.getImageUrl());
+        console.log("Email: " + profile.getEmail());
+
+        // The ID token you need to pass to your backend:
+        var id_token = googleUser.getAuthResponse().id_token;
+        console.log("ID Token: " + id_token);
+      };
+    </script> -->
+
+<!--   <div id="legend"><h3>Legend</h3></div>
+ -->
+
     <div id="map"></div>
 
 
