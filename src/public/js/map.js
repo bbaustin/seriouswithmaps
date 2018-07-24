@@ -5,6 +5,8 @@ var map,
     initialLocation = [],
     controlUI = document.createElement('div'),
     controlText = document.createElement('div'),
+    secondUI = document.createElement('div'),
+    secondText = document.createElement('div'),
     marker,
     counter = 0,
     latHolder = document.getElementById('lat1'),
@@ -35,9 +37,13 @@ function getLocation() {
       });
       yellowArray.push(marker);
 
+      var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
+      var welcomeWindow  = new google.maps.InfoWindow({
+        content: welcomeContent
+      });
+      welcomeWindow.open(map, marker);
 
       marker.addListener('click', function() {
-        // infowindow.open(map, marker);
         console.log(yellowArray[0]);
       })
       marker.addListener('dragend', function(marker) {
@@ -47,6 +53,8 @@ function getLocation() {
         arr[1] = marker.latLng.lng(); 
       });
 
+      
+
       //LATER, make loading screen until this happens. 
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
@@ -55,7 +63,6 @@ function getLocation() {
 
       latHolder.value=arr[0];
       longHolder.value=arr[1];
-      // document.forms[0].submit()
 
     });
   } else {
@@ -74,6 +81,7 @@ function initMap() {
     // center: {lat: tLat, lng: tLng},    // LOADING SCREEN INSTEAD OF
     zoom: 19
   });
+
   centWin = new google.maps.InfoWindow;
 
 
@@ -82,6 +90,9 @@ function initMap() {
   url: '/getAll',
   type: 'get',
   dataType: 'json',
+  beforeSend: function() {
+    $('.loading').css('display', 'initial'); 
+  },
   success: function(locations) {
     // console.log(locations[1]);
     var markers = [];
@@ -118,7 +129,7 @@ function initMap() {
             for (var i = 0; i < markers.length; i++) {
               console.log(markers[i]._id);
               if (markers[i]._id === this.identification) { 
-                infowindow.setContent("<ul><li>Latitude: " + markers[i].loc[0].lat + "</li> <li>Longitude: " + markers[i].loc[0].lng + "</li><li>Date: " + markers[i].time.slice(0, 10) + "</li><li>Time: " + markers[i].time.slice(11, 16));
+                infowindow.setContent("<h3 style='text-align:center;color=rgba(91, 214, 191, 1);'>Good parking spot!</h3><ul><li>Date: " + markers[i].time.slice(0, 10) + "</li><li>Time: " + markers[i].time.slice(11, 16) + "</li></ul>");
               }
             }
             infowindow.open(map, this);
@@ -143,7 +154,15 @@ function initMap() {
             for (var i = 0; i < markers.length; i++) {
               console.log(markers[i]._id);
               if (markers[i]._id === this.identification) { 
-                infowindow.setContent("<ul><li>Latitude: " + markers[i].loc[0].lat + "</li> <li>Longitude: " + markers[i].loc[0].lng + "</li><li>Date: " + markers[i].time.slice(0, 10) + "</li><li>Time: " + markers[i].time.slice(11, 16));
+                var biketicket = "", 
+                    bikestolen = "";
+                if (markers[i].ticket) {
+                  biketicket = "<li>Bike was ticketed!</li>";
+                }
+                if (markers[i].stolen) {
+                  bikestolen = "<li>Bike was taken!</li>";
+                }
+                infowindow.setContent("<h3>Bad Parking Spot!</h3><ul>" + biketicket + bikestolen + "<li>Date: " + markers[i].time.slice(0, 10) + "</li><li>Time: " + markers[i].time.slice(11, 16) + "</li>");
               }
             }
             infowindow.open(map, this);
@@ -152,6 +171,11 @@ function initMap() {
 
       }
     }
+  },
+  complete: function() {
+    $('.loading').fadeOut(1000, 'swing', function () {
+      $('.loading').remove();
+    });
   },
   error: function(err) {
     console.log(err);
@@ -176,9 +200,9 @@ function initMap() {
   ////////////////////////////////////
   var floaty = document.getElementById('floaty');
   var floatyHolder = document.getElementsByClassName('floatyholder')[0];
-  var contentBox = "<small>Add backend stuff later</small>" 
-  var infowindow = new google.maps.InfoWindow({
-    content: contentBox
+  var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
+  var welcomeWindow  = new google.maps.InfoWindow({
+    content: welcomeContent
   });
 
 
@@ -194,9 +218,7 @@ function initMap() {
     changed=true;
     makeSureOneYellow();
     placeMarker(loc.latLng, map);
-
     
-    //PROBLEM HERE? 
     latHolder.value=loc.latLng.lat();
     arr[0] = loc.latLng.lat();
     longHolder.value=loc.latLng.lng();
@@ -204,7 +226,6 @@ function initMap() {
   }) 
 
   function placeMarker(latLng, map) {
-    // makeSureOneYellow();
     marker = new google.maps.Marker({
       position: latLng,
       map: map,
@@ -213,7 +234,7 @@ function initMap() {
     });
     marker.setZIndex(99999);
     marker.addListener('click', function() {
-      infowindow.open(map, marker);
+      welcomeWindow.open(map, marker);
     })
     yellowArray.push(marker);
     marker.addListener('dragend', function(marker) {
@@ -226,7 +247,6 @@ function initMap() {
 
   controlUI.addEventListener('click', function() {
     var myLatLng;
-      controlText.style.backgroundColor = "yellow";
       counter++;
       floatyHolder.style.zIndex = 10;
       
@@ -239,7 +259,7 @@ function initMap() {
       document.getElementsByName('stolen')[0].value = "";
     });
 
-  $('h1').on('click', function() {  //recenter marker
+  $(secondUI).on('click', function() {  //recenter marker
     var myLatLng;
     changed=true;
     makeSureOneYellow();
@@ -248,7 +268,7 @@ function initMap() {
     arr[0] = initialLocation[0];
     longHolder.value=initialLocation[1];
     arr[1] = initialLocation[1];
-
+    map.setCenter({lat: arr[0], lng: arr[1]});
     placeMarker(myLatLng, map);  // do NOT place new marker.
   })
 
@@ -266,7 +286,7 @@ function CenterControl(controlDiv, map) {
   controlDiv.appendChild(controlUI);
 
   // Set CSS for the control interior.
-  controlText.style.color = 'rgb(25,25,25)';
+  controlText.style.color = 'rgba(250,250,250,1)';
   controlText.style.fontFamily = 'Muli,Arial,sans-serif';
   controlText.style.fontSize = '16px';
   controlText.style.lineHeight = '38px';
@@ -275,11 +295,49 @@ function CenterControl(controlDiv, map) {
   controlText.style.marginTop = '40px';
   controlText.innerHTML = 'Confirm location';
   controlUI.appendChild(controlText);
+  $(controlUI).addClass('color-change');
 }
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
   centerControlDiv.index = 1;
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+
+function SecondControl(secondDiv, map) {
+  // Set CSS for the control border.
+  secondUI.style.backgroundColor = '#fff';
+  secondUI.style.border = '2px solid #fff';
+  secondUI.style.borderRadius = '3px';
+  secondUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+  secondUI.style.cursor = 'pointer';
+  secondUI.style.marginBottom = '22px';
+  secondUI.style.textAlign = 'center';
+  secondUI.title = 'Reset Location';
+  secondDiv.appendChild(secondUI);
+
+  // Set CSS for the control interior.
+  secondText.style.color = 'rgb(25,25,25)';
+  secondText.style.fontFamily = 'Muli,Arial,sans-serif';
+  secondText.style.fontSize = '16px';
+  secondText.style.lineHeight = '38px';
+  secondText.style.paddingLeft = '5px';
+  secondText.style.paddingRight = '5px';
+  secondText.style.marginTop = '0px';
+  secondText.innerHTML = 'Reset Location';
+  secondUI.appendChild(secondText);
+}
+  var centerControlDiv = document.createElement('div');
+  var centerControl = new CenterControl(centerControlDiv, map);
+  centerControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+  var secondControlDiv = document.createElement('div');
+  var secondControl = new SecondControl(secondControlDiv, map);
+  secondControlDiv.index = 1;
+  map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(secondControlDiv);
+
+
+
 }
 
 function submission() {
@@ -328,6 +386,7 @@ function submission() {
     } else {
       $('#floaty h1').text('Please select Yes or No');
     }
+    $(controlUI).css('display', 'none');
   }
 
 $('nav p:first-child').on('click', function() {
@@ -389,11 +448,42 @@ $('.no').on('click', function() {
   // else {
   //   $('.presser')[($('.presser').index(this) - 1)].addClass('pressedt');
   // }
+  // var bikeLayer = new google.maps.BicyclingLayer();
+      // bikeLayer.setMap(map);
 
 
 
   $('.additionalOptions').css('display', 'initial');
 })
+
+
+
+
+
+  // LEGEND
+// var legend = document.getElementById('legend');
+//   var green = new google.maps.Marker ({
+//               path: google.maps.SymbolPath.CIRCLE,
+//               scale: 6,
+//               fillColor: 'black',
+//               fillOpacity: 1,
+//               strokeColor: 'rgba(251, 148, 189, 0.82)'
+//         });
+//   var pink = new google.maps.Marker ({
+//               path: google.maps.SymbolPath.CIRCLE,
+//               scale: 6,
+//               fillColor: 'black',
+//               fillOpacity: 1,
+//               strokeColor: 'rgba(251, 148, 189, 0.82)'
+//         });
+//   var div = document.createElement('div');
+//   div.innerHTML = green;
+//   legend.appendChild(div);
+//   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+
+
+
+
 
 
 
