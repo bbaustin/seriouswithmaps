@@ -1,11 +1,33 @@
 {
   "name": "bikemap",
   "version": "1.0.0",
-  "description": "",
+  "engines": {
+    "node": "6.2.0"
+  },
+  "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbaustin/seriouswithmaps.git"
+  },
+  "description": "",
   "author": "ben",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "gulp": "^3.9.1",
+    "gulp-less": "^4.0.1",
+    "gulp-live-server": "0.0.31",
+    "mongoose": "^5.2.6",
+    "serve-favicon": "^2.5.0",
+    "session": "^0.1.0"
+  }
 }
