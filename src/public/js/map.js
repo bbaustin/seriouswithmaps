@@ -43,6 +43,8 @@ function getLocation() {
       });
       welcomeWindow.open(map, marker);
 
+
+
       marker.addListener('click', function() {
         console.log(yellowArray[0]);
       })
@@ -303,6 +305,7 @@ function CenterControl(controlDiv, map) {
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 
+
 function SecondControl(secondDiv, map) {
   // Set CSS for the control border.
   secondUI.style.backgroundColor = '#fff';
@@ -457,7 +460,10 @@ $('.no').on('click', function() {
 })
 
 
-
+      // function load() {
+      //   console.log("load event detected!");
+      // }
+      // $('controlUI').onload = load;
 
 
   // LEGEND
