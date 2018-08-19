@@ -10,5 +10,19 @@
     "start": "node src/index.js"
   },
   "author": "ben",
+  "dependencies": {
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "gulp": "^3.9.1",
+    "gulp-less": "^4.0.1",
+    "gulp-live-server": "0.0.31",
+    "mongoose": "^5.2.6",
+    "serve-favicon": "^2.5.0",
+    "session": "^0.1.0"
+  },
   "license": "MIT"
 }
