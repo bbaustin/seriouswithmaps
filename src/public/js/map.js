@@ -66,6 +66,9 @@ function getLocation() {
       latHolder.value=arr[0];
       longHolder.value=arr[1];
 
+    },
+    function(failure) {
+      console.log(failure);
     });
   } else {
     // Browser doesn't support Geolocation

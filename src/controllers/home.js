@@ -3,7 +3,7 @@ var express         = require('express'),
     HomeController  = express.Router(),
     User            = require(__dirname + '/../models/user'),
     Location        = require(__dirname + '/../models/location'),
-    bcrypt          = require('bcrypt'),
+    // bcrypt          = require('bcrypt'),
     session         = require('express-session');
        
 
