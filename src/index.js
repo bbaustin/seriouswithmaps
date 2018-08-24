@@ -46,7 +46,7 @@ app.use('/', function(req, res, next) {
     res.redirect('/');
   }
 });
-app.use('/search', require('./controllers/search'));
+// app.use('/search', require('./controllers/search'));
 
 
 // Server listen
