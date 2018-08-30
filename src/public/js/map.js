@@ -32,7 +32,13 @@ function getLocation() {
         position: pos,
         map: map,
         draggable: true,
-        icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+        icon: {
+                      path: google.maps.SymbolPath.CIRCLE,
+                      scale: 8,
+                      fillColor: 'black',
+                      fillOpacity: 1,
+                      strokeColor: 'rgba(254, 183, 9, 0.82)'
+                    },
         zIndex: 99999
       });
       yellowArray.push(marker);
@@ -354,6 +360,13 @@ function submission() {
     // var ok2 = document.getElementsByName('ticket')[0];
     // var ok3 = document.getElementsByName('stolen')[0];
     var myLatLng = {lat: arr[0], lng: arr[1]}; 
+    var thanksContent = "<h3>Thanks for submitting!</h3>";
+    var thanksWindow  = new google.maps.InfoWindow({
+      content: thanksContent
+    });
+
+
+
 
     if (ok.value === "true") {
       console.log('yes hit');
@@ -394,7 +407,9 @@ function submission() {
     } else {
       $('#floaty h1').text('Please select Yes or No');
     }
-    $(controlUI).css('display', 'none');
+    thanksWindow.open(map, marker);
+
+    // $(controlUI).css('display', 'none');   //WHY WAS THIS HERE? It makes the flashing button go away when u submit
   }
 
 $('nav p:first-child').on('click', function() {

@@ -5,9 +5,9 @@ var dotenv     = require('dotenv').config({silent:true}),
     path       = require('path'),
     exphbs     = require('express-handlebars'),
     bodyParser = require('body-parser'),
-    session    = require('express-session'),
-    http       = require('http'),
-    enforce    = require('express-sslify');
+    session    = require('express-session');
+    // http       = require('http'),
+    // enforce    = require('express-sslify');
 
 
 // Configure Setting
@@ -52,10 +52,11 @@ app.use('/', function(req, res, next) {
 // app.use('/search', require('./controllers/search'));
 
 
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+// app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 
 // Server listen
-var server = app.listen(process.env.PORT || 8008, function() {   
+var server = app.listen(process.env.PORT || 8008, function(err) {   
 	console.log('server running at ' + server.address().port);
+  console.log(err);
 });
