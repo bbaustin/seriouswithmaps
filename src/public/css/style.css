@@ -159,4 +159,7 @@ input {
   nav {
     display: none;
   }
+  .gm-style-iw {
+    width: 200px !important;
+  }
 }

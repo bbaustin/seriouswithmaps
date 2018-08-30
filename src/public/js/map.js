@@ -215,7 +215,7 @@ function initMap() {
   var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
   var welcomeWindow  = new google.maps.InfoWindow({
     content: welcomeContent, 
-    maxWidth: 100
+    maxWidth: '100px'
   });
 
 
@@ -348,7 +348,7 @@ function SecondControl(secondDiv, map) {
   var secondControlDiv = document.createElement('div');
   var secondControl = new SecondControl(secondControlDiv, map);
   secondControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(secondControlDiv);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(secondControlDiv);
 
 
 
