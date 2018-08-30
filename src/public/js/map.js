@@ -85,6 +85,7 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     // center: {lat: tLat, lng: tLng},    // LOADING SCREEN INSTEAD OF
     zoom: 19
+    disableDefaultUI: true
   });
 
   centWin = new google.maps.InfoWindow;
@@ -207,7 +208,8 @@ function initMap() {
   var floatyHolder = document.getElementsByClassName('floatyholder')[0];
   var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
   var welcomeWindow  = new google.maps.InfoWindow({
-    content: welcomeContent
+    content: welcomeContent, 
+    maxWidth: 200
   });
 
 

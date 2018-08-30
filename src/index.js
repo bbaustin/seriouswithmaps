@@ -5,7 +5,9 @@ var dotenv     = require('dotenv').config({silent:true}),
     path       = require('path'),
     exphbs     = require('express-handlebars'),
     bodyParser = require('body-parser'),
-    session    = require('express-session');
+    session    = require('express-session'),
+    http       = require('http'),
+    enforce    = require('express-sslify');
 
 
 // Configure Setting
@@ -30,6 +32,7 @@ app.use(session({
 }));
 
 
+
 // Connect to Database
 require('./db/db');
 
@@ -47,6 +50,9 @@ app.use('/', function(req, res, next) {
   }
 });
 // app.use('/search', require('./controllers/search'));
+
+
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 
 // Server listen
