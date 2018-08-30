@@ -84,7 +84,7 @@ function initMap() {
   getLocation();
   map = new google.maps.Map(document.getElementById('map'), {
     // center: {lat: tLat, lng: tLng},    // LOADING SCREEN INSTEAD OF
-    zoom: 19
+    zoom: 19,
     disableDefaultUI: true
   });
 
