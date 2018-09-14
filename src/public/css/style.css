@@ -31,8 +31,12 @@ h6 {
   border-radius: 15px;
   text-align: center;
   z-index: -10;
-  background-color: rgba(78, 78, 78, 0.75);
+  background-color: rgba(78, 78, 78, 0.85);
   color: #fafafa;
+}
+#floaty p {
+  padding: 0px 15px;
+  line-height: 1.5;
 }
 .north {
   height: 40px;

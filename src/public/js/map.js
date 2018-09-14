@@ -1,19 +1,57 @@
 var map,
     pos,
-    centWin,
     arr = [],
     initialLocation = [],
+    marker,
     controlUI = document.createElement('div'),
     controlText = document.createElement('div'),
     secondUI = document.createElement('div'),
     secondText = document.createElement('div'),
-    marker,
     counter = 0,
     latHolder = document.getElementById('lat1'),
     longHolder = document.getElementById('long1'),
     changed = false,
     yellowArray = [];
     
+
+function createYellowMarker(pos) {
+  marker = new google.maps.Marker({
+    position: pos,
+    map: map,
+    draggable: true,
+    icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 8,
+              fillColor: 'black',
+              fillOpacity: 1,
+              strokeColor: 'rgba(254, 183, 9, 0.82)'
+          },
+    zIndex: 99999
+  });
+  yellowArray.push(marker);
+
+
+  var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
+  var welcomeWindow  = new google.maps.InfoWindow({
+    content: welcomeContent
+  });
+  welcomeWindow.open(map, marker);
+
+
+  marker.addListener('dragend', function(marker) {
+    latHolder.value  = marker.latLng.lat();
+    arr[0]           = marker.latLng.lat();
+    
+    longHolder.value = marker.latLng.lng();
+    arr[1]           = marker.latLng.lng(); 
+  });
+
+
+  return marker;
+}
+
+
+
 
 function getLocation() {
   var save;
@@ -23,43 +61,10 @@ function getLocation() {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
-   
-      centWin.setPosition(pos);
-      centWin.setContent('You are here');
-      // centWin.open(map);
 
-      marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-        draggable: true,
-        icon: {
-                      path: google.maps.SymbolPath.CIRCLE,
-                      scale: 8,
-                      fillColor: 'black',
-                      fillOpacity: 1,
-                      strokeColor: 'rgba(254, 183, 9, 0.82)'
-                    },
-        zIndex: 99999
-      });
-      yellowArray.push(marker);
-
-      var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
-      var welcomeWindow  = new google.maps.InfoWindow({
-        content: welcomeContent
-      });
-      welcomeWindow.open(map, marker);
+  createYellowMarker(pos);
 
 
-
-      marker.addListener('click', function() {
-        console.log(yellowArray[0]);
-      })
-      marker.addListener('dragend', function(marker) {
-        latHolder.value=marker.latLng.lat();
-        arr[0] = marker.latLng.lat();
-        longHolder.value=marker.latLng.lng();
-        arr[1] = marker.latLng.lng(); 
-      });
 
       
 
@@ -67,29 +72,24 @@ function getLocation() {
       map.setCenter(pos);
       arr.push(position.coords.latitude, position.coords.longitude);
       initialLocation.push(position.coords.latitude, position.coords.longitude)
-      // $('.two').append('<p id="lat2">'+arr[0]+'</p><p id="long2">'+arr[1]+'</p>'); //7/6: do I still need this? 
 
-      latHolder.value=arr[0];
-      longHolder.value=arr[1];
+      latHolder.value  = arr[0];
+      longHolder.value = arr[1];
     });
-    // },
-    // function(failure) {
-    //   console.log(failure);
-    // });
-  } else {
+  } 
+  else {
     // Browser doesn't support Geolocation
-    handleLocationError(false, centWin, map.getCenter());
+    handleLocationError(false, map.getCenter());
     pos = {
-              lat: 35.689487,
-              lng: 139.691706
-            };
-    }
+      lat: 35.689487,
+      lng: 139.691706
+    };
+  }
 }
 
 function initMap() {
   getLocation();
   map = new google.maps.Map(document.getElementById('map'), {
-    // center: {lat: tLat, lng: tLng},    // LOADING SCREEN INSTEAD OF
     zoom: 19,
     disableDefaultUI: true
   });
@@ -230,7 +230,7 @@ function initMap() {
   map.addListener('click', function(loc) {
     changed=true;
     makeSureOneYellow();
-    placeMarker(loc.latLng, map);
+    createYellowMarker(loc.latLng);
     
     latHolder.value=loc.latLng.lat();
     arr[0] = loc.latLng.lat();
@@ -238,25 +238,25 @@ function initMap() {
     arr[1] = loc.latLng.lng(); 
   }) 
 
-  function placeMarker(latLng, map) {
-    marker = new google.maps.Marker({
-      position: latLng,
-      map: map,
-      draggable: true,
-      icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'//,
-    });
-    marker.setZIndex(99999);
-    marker.addListener('click', function() {
-      welcomeWindow.open(map, marker);
-    })
-    yellowArray.push(marker);
-    marker.addListener('dragend', function(marker) {
-      latHolder.value=marker.latLng.lat();
-      arr[0] = marker.latLng.lat();
-      longHolder.value=marker.latLng.lng();
-      arr[1] = marker.latLng.lng(); 
-    })
-  }
+  // function placeMarker(latLng, map) {
+  //   marker = new google.maps.Marker({
+  //     position: latLng,
+  //     map: map,
+  //     draggable: true,
+  //     icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'//,
+  //   });
+  //   marker.setZIndex(99999);
+  //   marker.addListener('click', function() {
+  //     welcomeWindow.open(map, marker);
+  //   })
+  //   yellowArray.push(marker);
+  //   marker.addListener('dragend', function(marker) {
+  //     latHolder.value=marker.latLng.lat();
+  //     arr[0] = marker.latLng.lat();
+  //     longHolder.value=marker.latLng.lng();
+  //     arr[1] = marker.latLng.lng(); 
+  //   })
+  // }
 
   controlUI.addEventListener('click', function() {
     var myLatLng;
@@ -423,10 +423,11 @@ $('.about').on('click',function() {
 
 //definitely dryer way to do this
 $('.yes').on('click', function() {
-  console.log($('.presser').index(this));
+  // console.log($('.presser').index(this));
   // console.log($('.presser')[($('.presser').index(this) + 1)]);
-  // $(this).toggleClass('pressedt');
-  
+  $(this).addClass('pressedt');
+  $(this).next().removeClass('pressedp');
+
   if ($('.presser').index(this) === 0) {
     $('input')[2].value = true;
     $('.additionalOptions').css('display', 'none');
@@ -452,9 +453,12 @@ $('.yes').on('click', function() {
 })
 
 $('.no').on('click', function() {
-  console.log($('.presser').index(this));
-  console.log($('.presser').index(this) + 1);
-  // $(this).toggleClass('pressedp');
+  // console.log($('.presser').index(this));
+  // console.log($('.presser').index(this) + 1);
+  $(this).addClass('pressedp');
+  $(this).prev().removeClass('pressedt');
+
+  // $('.presser')[$('.presser').index(this) - 1].toggleClass('pressedt');
 
   if ($('.presser').index(this) === 1) {
     $('input')[2].value = false;
