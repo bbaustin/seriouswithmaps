@@ -370,6 +370,7 @@ function submission() {
 
     if (ok.value === "true") {
       console.log('yes hit');
+      
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: map, 
@@ -423,16 +424,14 @@ $('.about').on('click',function() {
 
 //definitely dryer way to do this
 $('.yes').on('click', function() {
-  // console.log($('.presser').index(this));
-  // console.log($('.presser')[($('.presser').index(this) + 1)]);
   $(this).addClass('pressedt');
   $(this).next().removeClass('pressedp');
 
   if ($('.presser').index(this) === 0) {
     $('input')[2].value = true;
     $('.additionalOptions').css('display', 'none');
-    document.getElementsByName('ticket')[0].value = "";
-    document.getElementsByName('stolen')[0].value = "";
+    document.getElementsByName('ticket')[0].value = "false";
+    document.getElementsByName('stolen')[0].value = "false";
   }
   else if ($('.presser').index(this) === 2) {
     $('input')[3].value = true;
@@ -440,25 +439,11 @@ $('.yes').on('click', function() {
   else if ($('.presser').index(this) === 4) {
     $('input')[4].value = true;
   }
-
-
-  
-
-  // if ($(this).hasClass('pressedt')) { 
-  //   $('.presser')[($('.presser').index(this) + 1)].removeClass('pressedp');
-  // }
-  // else {
-  //   $('.presser')[($('.presser').index(this) + 1)].addClass('pressedp');
-  // }
 })
 
 $('.no').on('click', function() {
-  // console.log($('.presser').index(this));
-  // console.log($('.presser').index(this) + 1);
   $(this).addClass('pressedp');
   $(this).prev().removeClass('pressedt');
-
-  // $('.presser')[$('.presser').index(this) - 1].toggleClass('pressedt');
 
   if ($('.presser').index(this) === 1) {
     $('input')[2].value = false;
@@ -469,17 +454,6 @@ $('.no').on('click', function() {
   else if ($('.presser').index(this) === 5) {
     $('input')[4].value = false;
   }
-  // if ($(this).hasClass('pressedp')) { 
-  //   $('.presser')[0].removeClass('pressedt');
-  // }
-  // else {
-  //   $('.presser')[($('.presser').index(this) - 1)].addClass('pressedt');
-  // }
-  // var bikeLayer = new google.maps.BicyclingLayer();
-      // bikeLayer.setMap(map);
-
-
-
   $('.additionalOptions').css('display', 'initial');
 })
 
