@@ -370,7 +370,7 @@ function submission() {
 
     if (ok.value === "true") {
       console.log('yes hit');
-      
+
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: map, 
@@ -430,8 +430,8 @@ $('.yes').on('click', function() {
   if ($('.presser').index(this) === 0) {
     $('input')[2].value = true;
     $('.additionalOptions').css('display', 'none');
-    document.getElementsByName('ticket')[0].value = "false";
-    document.getElementsByName('stolen')[0].value = "false";
+    document.getElementsByName('ticket')[0].value = "false";  // If you don't do this, the other fields will be blank.
+    document.getElementsByName('stolen')[0].value = "false";  // This causes an error in which good parking spots aren't saved. 
   }
   else if ($('.presser').index(this) === 2) {
     $('input')[3].value = true;
