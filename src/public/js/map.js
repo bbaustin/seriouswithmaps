@@ -31,11 +31,6 @@ function createYellowMarker(pos) {
   yellowArray.push(marker);
 
 
-  var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
-  var welcomeWindow  = new google.maps.InfoWindow({
-    content: welcomeContent
-  });
-  welcomeWindow.open(map, marker);
 
 
   marker.addListener('dragend', function(marker) {
@@ -46,9 +41,10 @@ function createYellowMarker(pos) {
     arr[1]           = marker.latLng.lng(); 
   });
 
-
   return marker;
 }
+
+
 
 
 
@@ -63,6 +59,12 @@ function getLocation() {
       };
 
   createYellowMarker(pos);
+  // MAKE THIS NOT HAPPEN EVERY TIME YOU CLICK 
+    var welcomeContent = "<h3>Hello!</h3><p>This is where you are. Click or drag to finetune your location.</p> <p>When you're ready to submit a location, press the blinking button above.</p>";
+    var welcomeWindow  = new google.maps.InfoWindow({
+      content: welcomeContent
+    });
+    welcomeWindow.open(map, marker);
 
 
 
@@ -109,13 +111,8 @@ function initMap() {
     // console.log(locations[1]);
     var markers = [];
     for (var i = 0; i < locations.length; i++) {
-
-      
-      // console.log(locations[i]);
-
       if (locations[i].loc[0].lat && locations[i].loc[0].lng){
         markers.push(locations[i]); // 7/6: Not sure if needed. Might be useful to access all markers from front end. Hide all, etc. 
-        // console.log(markers);
         var contentBox = "";
         var infowindow = new google.maps.InfoWindow({
           content: contentBox
@@ -238,25 +235,6 @@ function initMap() {
     arr[1] = loc.latLng.lng(); 
   }) 
 
-  // function placeMarker(latLng, map) {
-  //   marker = new google.maps.Marker({
-  //     position: latLng,
-  //     map: map,
-  //     draggable: true,
-  //     icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'//,
-  //   });
-  //   marker.setZIndex(99999);
-  //   marker.addListener('click', function() {
-  //     welcomeWindow.open(map, marker);
-  //   })
-  //   yellowArray.push(marker);
-  //   marker.addListener('dragend', function(marker) {
-  //     latHolder.value=marker.latLng.lat();
-  //     arr[0] = marker.latLng.lat();
-  //     longHolder.value=marker.latLng.lng();
-  //     arr[1] = marker.latLng.lng(); 
-  //   })
-  // }
 
   controlUI.addEventListener('click', function() {
     var myLatLng;
@@ -409,8 +387,6 @@ function submission() {
       $('#floaty h1').text('Please select Yes or No');
     }
     thanksWindow.open(map, marker);
-
-    // $(controlUI).css('display', 'none');   //WHY WAS THIS HERE? It makes the flashing button go away when u submit
   }
 
 $('nav p:first-child').on('click', function() {
@@ -456,37 +432,6 @@ $('.no').on('click', function() {
   }
   $('.additionalOptions').css('display', 'initial');
 })
-
-
-      // function load() {
-      //   console.log("load event detected!");
-      // }
-      // $('controlUI').onload = load;
-
-
-  // LEGEND
-// var legend = document.getElementById('legend');
-//   var green = new google.maps.Marker ({
-//               path: google.maps.SymbolPath.CIRCLE,
-//               scale: 6,
-//               fillColor: 'black',
-//               fillOpacity: 1,
-//               strokeColor: 'rgba(251, 148, 189, 0.82)'
-//         });
-//   var pink = new google.maps.Marker ({
-//               path: google.maps.SymbolPath.CIRCLE,
-//               scale: 6,
-//               fillColor: 'black',
-//               fillOpacity: 1,
-//               strokeColor: 'rgba(251, 148, 189, 0.82)'
-//         });
-//   var div = document.createElement('div');
-//   div.innerHTML = green;
-//   legend.appendChild(div);
-//   map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
-
-
-
 
 
 
